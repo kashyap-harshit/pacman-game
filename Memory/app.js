@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
   const grid = document.querySelector("#grid");
-  var cardsChosen = [];
+  var cardsChosenName = [];
   var cardsChosenId = [];
   var cardsWon = [];
   const scoreDisplay = document.getElementById("score");
@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   ];
 
+  //shuffle our cardsArray
   cardsArray.sort(function() {
     return .5 - Math.random();
   });
@@ -89,40 +90,46 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  //check for matches
-  function checkForMatch(){
-    var cards = document.querySelectorAll("img"); //all loaded cards
-    const optionOneId = cardsChosenId[0];
-    const optionTwoId = cardsChosenId[1];
-    if(optionOneId == optionTwoId) {
-      cards[optionOneId].setAttribute('src', 'img/youtubelogo.png');
-      cards[optionTwoId].setAttribute('src', 'img/youtubelogo.png');
-    }
-    else if(cardsChosen[0] === cardsChosen[1]){
-      cards[optionOneId].removeEventListener('click', flipCard);
-      cards[optionTwoId].removeEventListener('click', flipCard);
-      cardsWon.push(cardsChosen);
-    }
-    else {
-      cards[optionOneId].setAttribute('src', "img/youtubelogo.png");
-      cards[optionTwoId].setAttribute('src', "img/youtubelogo.png");
-    }
-    cardsChosen = [];
-    cardsChosenId = [];
-    scoreDisplay.textContent = cardsWon.length;
-    if(cardsWon.length === cardsArray.length/2){
-      alert("YOU WON!");
-    }
-  }
-
   //flip card
   function flipCard(){
     var cardId = this.getAttribute("data-id");
-    cardsChosen.push(cardsArray[cardId].name);
+    cardsChosenName.push(cardsArray[cardId].name);
     cardsChosenId.push(cardId);
     this.setAttribute("src", cardsArray[cardId].img);
-    if(cardsChosen.length  === 2){
+    if(cardsChosenName.length  === 2){
       setTimeout(checkForMatch, 300);
+    }
+  }
+
+  //check for matches
+  function checkForMatch(){
+    var cards = document.querySelectorAll("img"); //all loaded cards on the grid
+    const optionOneId = cardsChosenId[0];
+    const optionTwoId = cardsChosenId[1];
+    if(optionOneId === optionTwoId) {
+      //same card clicked
+      cards[optionOneId].setAttribute('src', 'img/youtubelogo.png');
+      cards[optionTwoId].setAttribute('src', 'img/youtubelogo.png');
+    }
+    else if(cardsChosenName[0] === cardsChosenName[1]){
+      //match found
+      cards[optionOneId].removeEventListener('click', flipCard);
+      cards[optionTwoId].removeEventListener('click', flipCard);
+      cardsWon.push(cardsChosenName);
+    }
+    else {
+      //wrong
+      cards[optionOneId].setAttribute('src', "img/youtubelogo.png");
+      cards[optionTwoId].setAttribute('src', "img/youtubelogo.png");
+    }
+    //reset arrays after checking match
+    cardsChosenName = [];
+    cardsChosenId = [];
+    scoreDisplay.textContent = cardsWon.length;
+    if(cardsWon.length === cardsArray.length/2){
+      //game won
+      alert("Hooray! YOU WON!");
+      window.location.reload();
     }
   }
 
