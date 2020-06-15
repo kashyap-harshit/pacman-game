@@ -12,6 +12,12 @@ button {
   padding: 10px;
   font-size: 30px;
   margin-top: 20px;
+  color: green;
+}
+
+button:hover {
+ background-color: green;
+ color: white;
 }
 
 .square {

@@ -55,6 +55,10 @@ function moveMole() {
 
 startButton.addEventListener("click", function(){
   timerId = setInterval(countdown, 1000);
+  easyButton.classList.add("disabled");
+  hardButton.classList.add("disabled");
+  mediumButton.classList.add("disabled");
+  startButton.classList.add("disabled");
   moveMole();
 });
 
