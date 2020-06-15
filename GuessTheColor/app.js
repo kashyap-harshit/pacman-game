@@ -1,3 +1,6 @@
+/* Developed by
+          Mizanali Panjwani */
+
 var colors = generateRandomColors(6);
 var squares = document.querySelectorAll(".square");
 var targetColor = colors[Math.floor(Math.random()*colors.length)];

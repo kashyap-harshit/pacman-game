@@ -1,5 +1,5 @@
-/* Developed by Mizanali Panjwani
-June, 2020 */
+/* Developed by
+          Mizanali Panjwani */
 
 const cvs = document.getElementById("snake");
 const ctx = cvs.getContext("2d");

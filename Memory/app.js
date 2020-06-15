@@ -1,3 +1,6 @@
+/* Developed by
+          Mizanali Panjwani */
+          
 document.addEventListener("DOMContentLoaded", function(){
   const grid = document.querySelector("#grid");
   var cardsChosenName = [];

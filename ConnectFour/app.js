@@ -1,3 +1,6 @@
+/* Developed by
+          Mizanali Panjwani */
+
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById("grid");
   const squares = document.querySelectorAll('#grid div');
