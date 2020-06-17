@@ -1,6 +1,6 @@
 /* Developed by
           Mizanali Panjwani */
-          
+
 document.addEventListener("DOMContentLoaded", function(){
   const grid = document.querySelector("#grid");
   var cardsChosenName = [];
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   function countdown() {
     if (timeLeft == 0) {
-      clearTimeout(timerId);
+      clearInterval(timerId);
       timer.innerHTML = 0 + ' seconds remaining';
       alert("GAME OVER! Your score : " + scoreDisplay.textContent);
       window.location.reload();
