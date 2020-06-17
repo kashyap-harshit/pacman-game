@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var logsId;
   const width = 9;
   var currentIndex = 76;
-  var timeLeft = 30;
+  var timeLeft = 15;
   var timer = document.getElementById('timer');
   var gameplayIntervalId;
   var countdownIntervalId;
