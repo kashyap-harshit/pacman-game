@@ -1,0 +1,104 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: black;
+  color: blue;
+}
+
+#meta {
+  float: left;
+  width: 560px;
+  height: 560px;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 100px;
+  margin-top: 100px;
+}
+
+h2{
+  color: yellow;
+}
+
+h3{
+  color: blue;
+}
+
+button {
+  background-color: yellow;
+  padding: 10px;
+  font-size: 25px;
+  color: blue;
+  margin-bottom: 30px;
+}
+
+button:hover {
+ background-color: blue;
+ color: yellow;
+}
+
+#grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 560px;
+  height: 560px;
+  border: 2px solid black;
+  float: right;
+  margin-right: 100px;
+  margin-top: 100px;
+}
+
+#grid div {
+  width: 20px;
+  height: 20px;
+}
+
+.dot {
+  background-color: white;
+  border: 7px solid black;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+.energizer {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.wall {
+  background-color: grey;
+}
+
+.pac-man {
+  background-color: yellow;
+  border-radius: 10px;
+}
+
+.red {
+  background-color: red;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.pink {
+  background-color: pink;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.cyan {
+  background-color: cyan;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.orange {
+  background-color: orange;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.dizzy {
+  background-color: blue;
+  border: 0px;
+  border-radius: 0px;
+}
