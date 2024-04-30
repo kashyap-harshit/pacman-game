@@ -2,26 +2,18 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>mizanxali GameZone</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Pac-Man</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1><a href="https://www.github.com/mizanxali">@mizanxali</a>'s GAME ZONE</h1>
-    <div id="games-list">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><a href="Memory/index.html">The YouTubers Memory Game</a></li>
-        <li class="list-group-item"><a href="Snake/index.html">Snake</li>
-        <li class="list-group-item"><a href="GuessTheColor/index.html">Guess The Color</li>
-        <li class="list-group-item"><a href="Whac-A-Mole/index.html">Whack-A-Mole</li>
-        <li class="list-group-item"><a href="ConnectFour/index.html">Connect Four</li>
-        <li class="list-group-item"><a href="SpaceInvaders/index.html">Space Invaders</li>
-        <li class="list-group-item"><a href="Frogger/index.html">Frogger</li>
-        <li class="list-group-item"><a href="CandyCrushSaga/index.html">Candy Crush Saga</li>
-        <li class="list-group-item"><a href="2048/index.html">2048</li>
-        <li class="list-group-item"><a href="Pac-Man (beta)/index.html">Pac-Man (beta)</li>
-      </ul>
+    <div id="meta">
+      <h1>Pac-Man</h1>
+      <h2 id="result"></h2>
+      <h3>Score: <span id="score">0</span></h3>
+      <button type="button" onClick="window.location.reload();">RESET</button>
     </div>
+    <div id="grid"></div>
+    <script src="app.js" charset="utf-8"></script>
   </body>
 </html>
