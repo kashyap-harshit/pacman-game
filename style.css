@@ -15,11 +15,11 @@ body {
   margin-top: 100px;
 }
 
-h2{
+h2 {
   color: yellow;
 }
 
-h3{
+h3 {
   color: blue;
 }
 
@@ -32,8 +32,8 @@ button {
 }
 
 button:hover {
- background-color: blue;
- color: yellow;
+  background-color: blue;
+  color: yellow;
 }
 
 #grid {
@@ -53,7 +53,7 @@ button:hover {
 }
 
 .dot {
-  background-color: white;
+  background-color: #cfa500;
   border: 7px solid black;
   box-sizing: border-box;
   border-radius: 50%;
@@ -69,32 +69,46 @@ button:hover {
 }
 
 .pac-man {
-  background-color: yellow;
+  background-image: url(assets/pac2.png);
+  background-size: contain;
   border-radius: 10px;
+  background-repeat: no-repeat;
 }
 
 .red {
-  background-color: red;
+  background-color: black!important;
+  background-image: url('assets/red.png') ;
+  background-size: contain;
   border: 0px;
   border-radius: 0px;
+  background-repeat: no-repeat;
 }
 
 .pink {
-  background-color: pink;
+  background-color: black!important;
+  background-image: url('assets/blue.png') ;
+  background-size: contain;
   border: 0px;
   border-radius: 0px;
+  background-repeat: no-repeat;
 }
 
 .cyan {
-  background-color: cyan;
+  background-color: black!important;
+  background-image: url('assets/blue.png') ;
+  background-size: contain;
   border: 0px;
   border-radius: 0px;
+  background-repeat: no-repeat;
 }
 
 .orange {
-  background-color: orange;
+  background-color: black!important;
+  background-image: url('assets/yellow.png') ;
+  background-size: contain;
   border: 0px;
   border-radius: 0px;
+  background-repeat: no-repeat;
 }
 
 .dizzy {
