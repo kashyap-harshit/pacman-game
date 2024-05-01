@@ -45,6 +45,7 @@ button:hover {
   float: right;
   margin-right: 100px;
   margin-top: 100px;
+  margin-bottom: 20px;
 }
 
 #grid div {
@@ -115,7 +116,9 @@ button:hover {
 }
 
 .dizzy {
-  background-color: blue;
+  background-color: black;
   border: 0px;
   border-radius: 0px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }

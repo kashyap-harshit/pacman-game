@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ghosts.forEach((item, i) => {
           item.isDizzy = false;
         });
-      }, 10000);
+      }, 3000); //changed the time period of their freezing HK
     }
   }
 
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   //create array of Ghost objects
-  const ghosts = [
+  const ghosts = [ //added more ghosts HK
     new Ghost("red", 348, 500),
     new Ghost("red", 376, 500),
     new Ghost("cyan", 351, 350),
@@ -186,8 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
       //check if random direction selected does not have a wall or another ghost in it
       if (!squares[ghost.currentIndex + randomDir].classList.contains("wall") && !squares[ghost.currentIndex + randomDir].classList.contains("ghost")) {
         squares[ghost.currentIndex].classList.remove("ghost", ghost.color, "dizzy", `dizzy-${ghost.color}`);
-        ghost.currentIndex += randomDir;
-        squares[ghost.currentIndex].classList.add("ghost", ghost.color);
+        if(ghost.isDizzy){ //if dizzy don't move HK
+
+        }else{
+
+          ghost.currentIndex += randomDir;
+          squares[ghost.currentIndex].classList.add("ghost", ghost.color);
+        }
       }
       //else re-assign the random direction
       else {
