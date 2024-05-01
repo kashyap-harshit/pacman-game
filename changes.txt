@@ -1,0 +1,4 @@
+added the pictures instead of those blocks
+fixed the window moving bug which every time we try to move the pac man upwards or downwards the window also used to move
+added more ghosts to increase the difficulty
+when made dizzy their pictures or faces change and a different emotioned png is added

@@ -84,13 +84,16 @@ button:hover {
   background-repeat: no-repeat;
 }
 
-.pink {
-  background-color: black!important;
-  background-image: url('assets/blue.png') ;
-  background-size: contain;
-  border: 0px;
-  border-radius: 0px;
-  background-repeat: no-repeat;
+.dizzy-red{
+  background-image: url('assets/rD.png')!important ;
+}
+
+.dizzy-cyan{
+  background-image: url('assets/bD.png')!important ;
+}
+
+.dizzy-orange{
+  background-image: url('assets/yD.png')!important ;
 }
 
 .cyan {
