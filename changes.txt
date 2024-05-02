@@ -3,3 +3,4 @@ fixed the window moving bug which every time we try to move the pac man upwards 
 added more ghosts to increase the difficulty
 when made dizzy their pictures or faces change and a different emotioned png is added
 when dizzy i made them to freeze at their places for 5 seconds to balance out the difficulty
+if the ghosts are inside the ghost-lair that is in the beginning of the game then just try to move them out of the ghost lair and never let them in unless pac man eats the ghost this increases difficulty 

@@ -4,6 +4,7 @@
                                THE GHOSTS MOVE RANDOMLY ACROSS THE BOARD
                                IN THE STABLE RELEASE OF THE GAME THEY WILL CHASE THE PAC-MAN */
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById("grid");
   const scoreDisplay = document.getElementById("score");
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function createBoard() {
     for (let i = 0; i < layout.length; i++) {
       const square = document.createElement("div");
+
       grid.appendChild(square);
       squares.push(square);
 
@@ -59,6 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       else if (layout[i] === 1) {
         squares[i].classList.add("wall");
+
+        // square.style.backgroundColor = "blue"
+
+
       }
       else if (layout[i] === 2) {
         squares[i].classList.add("ghost-lair");
@@ -66,10 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (layout[i] === 3) {
         squares[i].classList.add("energizer");
       }
+
     }
   }
 
+
   createBoard();
+
 
   //draw pac-man
   squares[pacmanCurrentIndex].classList.add("pac-man");
@@ -141,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ghosts.forEach((item, i) => {
           item.isDizzy = false;
         });
-      }, 3000); //changed the time period of their freezing HK
+      }, 2000); //changed the time period of their freezing HK
     }
   }
 
@@ -180,27 +189,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //move the ghost sent as parameter at it's respective speed
   function moveGhost(ghost) {
+    
     const directions = [-1, -width, 1, width];
     let randomDir = directions[Math.floor(Math.random() * directions.length)];
     ghost.timerId = setInterval(function () {
-      //check if random direction selected does not have a wall or another ghost in it
-      if (!squares[ghost.currentIndex + randomDir].classList.contains("wall") && !squares[ghost.currentIndex + randomDir].classList.contains("ghost")) {
-        squares[ghost.currentIndex].classList.remove("ghost", ghost.color, "dizzy", `dizzy-${ghost.color}`);
-        if(ghost.isDizzy){ //if dizzy don't move HK
+      if (!ghost.isDizzy) { //if dizzy don't move HK
 
-        }else{
-
-          ghost.currentIndex += randomDir;
-          squares[ghost.currentIndex].classList.add("ghost", ghost.color);
+        
+        //first check if it is in the lair only if that is so then try to move up
+        if (squares[ghost.currentIndex].classList.contains("ghost-lair")) {
+          if (!squares[ghost.currentIndex - width].classList.contains("wall") && !squares[ghost.currentIndex - width].classList.contains("ghost")) {
+            squares[ghost.currentIndex].classList.remove("ghost", ghost.color, "dizzy", `dizzy-${ghost.color}`);
+            ghost.currentIndex += -width;
+            squares[ghost.currentIndex].classList.add("ghost", ghost.color);
+          }
         }
-      }
-      //else re-assign the random direction
-      else {
-        randomDir = directions[Math.floor(Math.random() * directions.length)];
+        else {
+
+          //check if random direction selected does not have a wall or another ghost in it
+          if (!squares[ghost.currentIndex + randomDir].classList.contains("wall") && !squares[ghost.currentIndex + randomDir].classList.contains("ghost") && !squares[ghost.currentIndex + randomDir].classList.contains("ghost-lair")) {
+            squares[ghost.currentIndex].classList.remove("ghost", ghost.color, "dizzy", `dizzy-${ghost.color}`);
+
+            ghost.currentIndex += randomDir;
+            squares[ghost.currentIndex].classList.add("ghost", ghost.color);
+          }
+          //else re-assign the random direction
+          else {
+            randomDir = directions[Math.floor(Math.random() * directions.length)];
+          }
+        }
       }
       //if the ghost was dizzy before moving, keep it dizzy
       if (ghost.isDizzy === true) {
-        console.log(squares[ghost.currentIndex]);
+        // console.log(squares[ghost.currentIndex]);
         squares[ghost.currentIndex].classList.add("dizzy");
         squares[ghost.currentIndex].classList.add(`dizzy-${ghost.color}`);
       }
@@ -214,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       //check for gameover
       gameOver();
+
     }, ghost.speed);
   }
 
