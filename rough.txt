@@ -1,3 +1,0 @@
-iterate over all the sqaures which have the class wall
-then check if upper, lower, right, left square is also a wall (div that contains the class wall) --- iterate all the directions and check for each
-if it is there then note the direction
