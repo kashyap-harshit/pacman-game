@@ -5,19 +5,47 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+}
+.pm{
+  margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.instruct{
+  color: yellow;
+  margin: 20px 0px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%{
+    opacity: 0;
+  }
+  25%{
+    opacity: 1;
+  }
+  75%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
 }
 
 #meta {
   float: left;
-    width: -webkit-fill-available;
-    margin: 0px 200px;
-    height: 560px;
-    font-size: 30px;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 100px;
-    display: flex;
-    justify-content: space-between;
+  width: 80%;
+  margin: 0px 160px;
+  height: 560px;
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+    margin-top: 0px;
 }
 
 h2 {
@@ -26,6 +54,7 @@ h2 {
 
 h3 {
   color: blue;
+  margin: 24px 0px;
 }
 
 button {
@@ -33,8 +62,9 @@ button {
   padding: 10px;
   font-size: 25px;
   color: blue;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
+
 
 button:hover {
   background-color: blue;
@@ -50,7 +80,7 @@ button:hover {
   float: right;
 
   margin-top: 100px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 #grid div {
@@ -72,7 +102,7 @@ button:hover {
 
 .wall {
   background-color: grey;
-  
+
 }
 
 .pac-man {
@@ -83,29 +113,29 @@ button:hover {
 }
 
 .red {
-  background-color: black!important;
-  background-image: url('assets/red.png') ;
+  background-color: black !important;
+  background-image: url('assets/red.png');
   background-size: contain;
   border: 0px;
   border-radius: 0px;
   background-repeat: no-repeat;
 }
 
-.dizzy-red{
-  background-image: url('assets/rD.png')!important ;
+.dizzy-red {
+  background-image: url('assets/rD.png') !important;
 }
 
-.dizzy-cyan{
-  background-image: url('assets/bD.png')!important ;
+.dizzy-cyan {
+  background-image: url('assets/bD.png') !important;
 }
 
-.dizzy-orange{
-  background-image: url('assets/yD.png')!important ;
+.dizzy-orange {
+  background-image: url('assets/yD.png') !important;
 }
 
 .cyan {
-  background-color: black!important;
-  background-image: url('assets/blue.png') ;
+  background-color: black !important;
+  background-image: url('assets/blue.png');
   background-size: contain;
   border: 0px;
   border-radius: 0px;
@@ -113,8 +143,8 @@ button:hover {
 }
 
 .orange {
-  background-color: black!important;
-  background-image: url('assets/yellow.png') ;
+  background-color: black !important;
+  background-image: url('assets/yellow.png');
   background-size: contain;
   border: 0px;
   border-radius: 0px;
@@ -127,4 +157,55 @@ button:hover {
   border-radius: 0px;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.scoreBoard {
+  display: flex;
+  border: 4px solid yellow;
+  height: 186px;
+
+  cursor: default;
+}
+
+.name {
+  /* margin-right: 30px; */
+}
+
+.infos {
+  border-bottom: 4px solid yellow;
+
+}
+
+.s-right {
+  border-right: 4px solid yellow;
+}
+
+.s-text {
+  padding: 4px 25px;
+  height: 37px; 
+  
+
+}
+.s-text-p{
+  text-align: justify;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.s-text-c {
+  border-bottom: 2px solid yellow;
+}
+
+.info{
+
+}
+
+#title-img{
+  width: 100%;
+}
+
+.menu{
+  width: 400px;
 }

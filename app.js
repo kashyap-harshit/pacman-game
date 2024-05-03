@@ -6,9 +6,23 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  let gameStarted = false;
+  let paused = false;
+  let playerName;
+  let highscore1 = localStorage.getItem("highscore1");
+  let highscore2 = localStorage.getItem("highscore2");
+  let highscore3 = localStorage.getItem("highscore3");
   const grid = document.getElementById("grid");
   const scoreDisplay = document.getElementById("score");
   const resultDisplay = document.getElementById("result");
+  const meta = document.getElementById("meta");
+  const pFirst = document.getElementById("p-first");
+  const pSecond = document.getElementById("p-second");
+  const pThird = document.getElementById("p-third");
+  const sFirst = document.getElementById("s-first");
+  const sSecond = document.getElementById("s-second");
+  const sThird = document.getElementById("s-third");
+  const instruct = document.querySelector(".instruct");
   const squares = [];
   const width = 28;
   let score = 0;
@@ -48,6 +62,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3 - energizer
   // 4 - empty
 
+  //function to load the top scorers
+  function topScorers() {
+    highscore1 = localStorage.getItem("highscore1");
+    highscore2 = localStorage.getItem("highscore2");
+    highscore3 = localStorage.getItem("highscore3");
+    let highscoreArray;
+    if (highscore1) {
+      highscoreArray = highscore1.split(",");
+      pFirst.innerHTML = highscoreArray[0];
+      sFirst.innerHTML = highscoreArray[1];
+
+
+    }
+    else {
+      highscore1 = localStorage.setItem("highscore1", ",0") //in the gameover function i am slicing it up so to make sense there this had to be saved like this HK
+    }
+    if (highscore2) {
+      highscoreArray = highscore2.split(",");
+      pSecond.innerHTML = highscoreArray[0];
+      sSecond.innerHTML = highscoreArray[1];
+
+    }
+    else {
+      highscore2 = localStorage.setItem("highscore2", ",0")
+    }
+    if (highscore3) {
+      highscoreArray = highscore3.split(",");
+      pThird.innerHTML = highscoreArray[0];
+      sThird.innerHTML = highscoreArray[1];
+
+    }
+    else {
+      highscore3 = localStorage.setItem("highscore3", ",0")
+    }
+  }
+
   //draw board and fill it with squares according to layout array
   function createBoard() {
     for (let i = 0; i < layout.length; i++) {
@@ -62,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (layout[i] === 1) {
         squares[i].classList.add("wall");
 
-        // square.style.backgroundColor = "blue"
 
 
       }
@@ -78,16 +127,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   createBoard();
-
+  topScorers();
 
   //draw pac-man
   squares[pacmanCurrentIndex].classList.add("pac-man");
 
   //move pac-man using keyboard
 
-  document.addEventListener("keydown", movePacMan);
+  document.addEventListener("keydown", allKeydown); //since i have to cancel out the keydown event listener when game over so wrote a separate function consisting all the functions HK
+  function allKeydown(event) {
+    redirection(event);
 
+    movePacMan(event);
+  }
+
+  function redirection(event) {
+    if (paused) {
+      if (event.keyCode === 32) { // redirecting to the game window HK
+        event.preventDefault()
+        grid.scrollIntoView();
+        //call moveGhost function for each ghost by sending each ghost as parameter
+        ghosts.forEach((item, i) => {
+          moveGhost(item);
+        });
+        paused = false;
+      }
+    }else if(gameStarted){
+      if(event.keyCode === 32){
+        //chill
+      }
+    }
+    else {
+
+      if (event.keyCode === 32) { // redirecting to the game window HK
+        event.preventDefault()
+        grid.scrollIntoView();
+        // window.location.reload();
+        //call moveGhost function for each ghost by sending each ghost as parameter
+        ghosts.forEach((item, i) => {
+          moveGhost(item);
+        });
+        gameStarted = true;
+      }
+    }
+    if(gameStarted){
+
+      if (event.keyCode === 27) {
+        event.preventDefault();
+        meta.scrollIntoView();
+        ghosts.forEach((item, i) => {
+          clearInterval(item.timerId);
+        });
+        paused = true;
+        resultDisplay.innerHTML = "PAUSED";
+        instruct.innerHTML = "Press Space Bar To Continue";
+  
+  
+      }
+    }
+  }
   function movePacMan(event) {
+
+
     squares[pacmanCurrentIndex].classList.remove("pac-man");
     if (event.keyCode === 37) { //left
       if (pacmanCurrentIndex % width != 0 && !squares[pacmanCurrentIndex - 1].classList.contains("wall") && !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair")) {
@@ -120,12 +221,14 @@ document.addEventListener('DOMContentLoaded', () => {
         pacmanCurrentIndex += width;
       }
     }
+
     squares[pacmanCurrentIndex].classList.add("pac-man");
     //check for following functions after each movement
     checkDotEaten();
     checkEnergizerEaten();
-    gameOver();
+
     checkWin();
+    checkLose();
 
   }
 
@@ -176,26 +279,24 @@ document.addEventListener('DOMContentLoaded', () => {
     new Ghost("orange", 377, 250),
   ];
 
+
   //draw ghosts on the board
   ghosts.forEach((item, i) => {
     squares[item.currentIndex].classList.add(item.color);
     squares[item.currentIndex].classList.add("ghost");
   });
 
-  //call moveGhost function for each ghost by sending each ghost as parameter
-  ghosts.forEach((item, i) => {
-    moveGhost(item);
-  });
+
 
   //move the ghost sent as parameter at it's respective speed
   function moveGhost(ghost) {
-    
+
     const directions = [-1, -width, 1, width];
     let randomDir = directions[Math.floor(Math.random() * directions.length)];
     ghost.timerId = setInterval(function () {
       if (!ghost.isDizzy) { //if dizzy don't move HK
 
-        
+
         //first check if it is in the lair only if that is so then try to move up
         if (squares[ghost.currentIndex].classList.contains("ghost-lair")) {
           if (!squares[ghost.currentIndex - width].classList.contains("wall") && !squares[ghost.currentIndex - width].classList.contains("ghost")) {
@@ -233,29 +334,60 @@ document.addEventListener('DOMContentLoaded', () => {
         score += 100;
         scoreDisplay.innerHTML = score;
       }
-      //check for gameover
-      gameOver();
+
+      checkLose();
+
 
     }, ghost.speed);
   }
+  function checkNullString(str) {
+    if (!str) {
+      playerName = "no_name"
+    }
+  }
 
-  function gameOver() {
+  function gameOver(mess) { //added this common gameover function for winning and losing HK
+
+    ghosts.forEach((item, i) => {
+      clearInterval(item.timerId);
+    });
+    document.removeEventListener("keydown", allKeydown);
+    document.addEventListener("keydown", redirection);
+    resultDisplay.innerHTML = mess;
+
+    meta.scrollIntoView();
+    if (score === 0) {
+
+    }
+    else if (score >= highscore1.split(",")[1]) {
+
+      playerName = prompt("You have beat the highest score, enter your name : ");
+      checkNullString(playerName)
+      localStorage.setItem("highscore1", `${playerName},${score}`)
+
+    } else if (score >= highscore2.split(",")[1]) {
+      playerName = prompt("You have beat the second highest score, enter your name : ");
+      checkNullString(playerName)
+      localStorage.setItem("highscore2", `${playerName},${score}`)
+    } else if (score >= highscore3.split(",")[1]) {
+      playerName = prompt("You have beat the third highest score, enter your name : ");
+      checkNullString(playerName)
+      localStorage.setItem("highscore3", `${playerName},${score}`)
+    }
+    topScorers();
+    // window.location.reload();
+    gameStarted = false;
+
+  }
+  function checkLose() {
     if (squares[pacmanCurrentIndex].classList.contains("ghost") && !squares[pacmanCurrentIndex].classList.contains("dizzy")) {
-      ghosts.forEach((item, i) => {
-        clearInterval(item.timerId);
-      });
-      document.removeEventListener("keydown", movePacMan);
-      resultDisplay.innerHTML = "GAME OVER";
+      gameOver("GAME OVER");
     }
   }
 
   function checkWin() {
     if (score >= 2420) {
-      ghosts.forEach((item, i) => {
-        clearInterval(item.timerId);
-      });
-      document.removeEventListener("keydown", movePacMan);
-      resultDisplay.innerHTML = "YOU WON!";
+      gameOver("YOU WIN");
     }
   }
 });
