@@ -7,28 +7,32 @@ body {
   align-items: center;
   overflow: hidden;
 }
-.pm{
+
+.pm {
   margin-top: 0px;
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
-.instruct{
+.instruct {
   color: yellow;
   margin: 20px 0px;
   animation: blink 1s infinite;
 }
 
 @keyframes blink {
-  0%{
+  0% {
     opacity: 0;
   }
-  25%{
+
+  25% {
     opacity: 1;
   }
-  75%{
+
+  75% {
     opacity: 1;
   }
-  100%{
+
+  100% {
     opacity: 0;
   }
 }
@@ -37,7 +41,7 @@ body {
   float: left;
   width: 80%;
   margin: 0px 160px;
-  height: 560px;
+  height: 100vh;
   font-size: 30px;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
@@ -45,7 +49,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 h2 {
@@ -79,8 +83,6 @@ button:hover {
   border: 2px solid black;
   float: right;
 
-  margin-top: 100px;
-  margin-bottom: 10px;
 }
 
 #grid div {
@@ -102,16 +104,19 @@ button:hover {
 }
 
 @keyframes eng-an {
-  0%{
+  0% {
     opacity: 0;
   }
-  25%{
+
+  25% {
     opacity: 1;
   }
-  75%{
+
+  75% {
     opacity: 1;
   }
-  100%{
+
+  100% {
     opacity: 0;
   }
 }
@@ -201,11 +206,12 @@ button:hover {
 
 .s-text {
   padding: 4px 25px;
-  height: 37px; 
-  
+  height: 37px;
+
 
 }
-.s-text-p{
+
+.s-text-p {
   text-align: justify;
 }
 
@@ -217,25 +223,29 @@ button:hover {
   border-bottom: 2px solid yellow;
 }
 
-.info{
+.info {}
 
-}
-
-#title-img{
+#title-img {
   width: 100%;
 }
 
-.menu{
+.menu {
   width: 400px;
 }
 
+.space {
+  height: 100vh;
+}
 
-@media screen and (min-width: 1920px){
-  #meta{
-    padding: 300px 0px 350px;
+.grid-p {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 1920px) {
+  #meta {
     width: 50%;
-  }
-  #grid{
-    padding-bottom: 200px;
   }
 }
