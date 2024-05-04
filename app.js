@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 28;
   let score = 0;
   let pacmanCurrentIndex = 490;
+  
   let sfx = {
+    
     eat: new Howl({
       src: "assets/sounds/eat.mp3"
     }),
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     highscore2 = localStorage.getItem("highscore2");
     highscore3 = localStorage.getItem("highscore3");
     let highscoreArray;
-    if (highscore1) {
+    if (highscore1.split(",")[1]) {
       highscoreArray = highscore1.split(",");
       pFirst.innerHTML = highscoreArray[0];
       sFirst.innerHTML = highscoreArray[1];
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
       highscore1 = localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
     }
-    if (highscore2) {
+    if (highscore2.split(",")[1]) {
       highscoreArray = highscore2.split(",");
       pSecond.innerHTML = highscoreArray[0];
       sSecond.innerHTML = highscoreArray[1];
@@ -113,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
       highscore2 = localStorage.setItem("highscore2", ",0")
     }
-    if (highscore3) {
+    if (highscore3.split(",")[1]) {
       highscoreArray = highscore3.split(",");
       pThird.innerHTML = highscoreArray[0];
       sThird.innerHTML = highscoreArray[1];
@@ -179,8 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.addEventListener("keydown", movePacMan);
         paused = false;
+        gameStarted = true;
       }
     } else if (gameStarted) {
+      if(event.ctrlKey && event.key === 'r') {
+        event.preventDefault();
+        
+    }
       if (event.keyCode === 32) {
         //chill
       }
@@ -189,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (event.keyCode === 32) { // redirecting to the game window - HK
         event.preventDefault();
-        console.log('yaha');
         if (!sfx.bgm.playing()) {
           sfx.bgm.play();
         }
@@ -226,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
           clearInterval(item.timerId);
         });
         paused = true;
-        // gameStarted= false;
+        gameStarted= false;
         resultDisplay.innerHTML = "PAUSED";
         instruct.innerHTML = "Press Space Bar To Continue";
         document.removeEventListener("keydown", movePacMan)
@@ -430,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ghosts.forEach((item, i) => {
       clearInterval(item.timerId);
     });
-
+    sfx.bgm.stop()
     resultDisplay.innerHTML = mess;
 
     meta.scrollIntoView();
@@ -454,7 +460,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     topScorers();
     // window.location.reload();
-    sfx.bgm.stop();
     gameStarted = false;
 
   }
