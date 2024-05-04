@@ -96,33 +96,38 @@ document.addEventListener('DOMContentLoaded', () => {
     highscore2 = localStorage.getItem("highscore2");
     highscore3 = localStorage.getItem("highscore3");
     let highscoreArray;
-    if (highscore1.split(",")[1]) {
-      highscoreArray = highscore1.split(",");
-      pFirst.innerHTML = highscoreArray[0];
-      sFirst.innerHTML = highscoreArray[1];
-
-
-    }
-    else {
-      highscore1 = localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
-    }
-    if (highscore2.split(",")[1]) {
-      highscoreArray = highscore2.split(",");
-      pSecond.innerHTML = highscoreArray[0];
-      sSecond.innerHTML = highscoreArray[1];
-
-    }
-    else {
-      highscore2 = localStorage.setItem("highscore2", ",0")
-    }
-    if (highscore3.split(",")[1]) {
-      highscoreArray = highscore3.split(",");
-      pThird.innerHTML = highscoreArray[0];
-      sThird.innerHTML = highscoreArray[1];
-
-    }
-    else {
-      highscore3 = localStorage.setItem("highscore3", ",0")
+    try {
+      
+      if (highscore1.split(",")[1]) {
+        highscoreArray = highscore1.split(",");
+        pFirst.innerHTML = highscoreArray[0];
+        sFirst.innerHTML = highscoreArray[1];
+  
+  
+      }
+      else {
+        highscore1 = localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
+      }
+      if (highscore2.split(",")[1]) {
+        highscoreArray = highscore2.split(",");
+        pSecond.innerHTML = highscoreArray[0];
+        sSecond.innerHTML = highscoreArray[1];
+  
+      }
+      else {
+        highscore2 = localStorage.setItem("highscore2", ",0")
+      }
+      if (highscore3.split(",")[1]) {
+        highscoreArray = highscore3.split(",");
+        pThird.innerHTML = highscoreArray[0];
+        sThird.innerHTML = highscoreArray[1];
+  
+      }
+      else {
+        highscore3 = localStorage.setItem("highscore3", ",0")
+      }
+    } catch (error) {
+      
     }
   }
 
