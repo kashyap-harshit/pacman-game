@@ -426,8 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[ghost.currentIndex].classList.remove("ghost", ghost.color, "dizzy", `dizzy-${ghost.color}`);
         ghost.currentIndex = ghost.startIndex;
         squares[ghost.currentIndex].classList.add("ghost", ghost.color);
-        score += 100;
-        scoreDisplay.innerHTML = score;
       }
 
       checkLose();
