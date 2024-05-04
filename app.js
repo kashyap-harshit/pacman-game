@@ -102,39 +102,43 @@ document.addEventListener('DOMContentLoaded', () => {
     highscore2 = localStorage.getItem("highscore2");
     highscore3 = localStorage.getItem("highscore3");
     let highscoreArray;
-
-
-    if (highscore1.split(",")[1]) {
-      highscoreArray = highscore1.split(",");
-      pFirst.innerHTML = highscoreArray[0];
-      sFirst.innerHTML = highscoreArray[1];
-
-
+    try {
+      if (highscore1.split(",")[1]) {
+        highscoreArray = highscore1.split(",");
+        pFirst.innerHTML = highscoreArray[0];
+        sFirst.innerHTML = highscoreArray[1];
+  
+  
+      }
+      else {
+        localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
+        highscore1 = localStorage.getItem("highscore1");
+      }
+      if (highscore2.split(",")[1]) {
+        highscoreArray = highscore2.split(",");
+        pSecond.innerHTML = highscoreArray[0];
+        sSecond.innerHTML = highscoreArray[1];
+  
+      }
+      else {
+        localStorage.setItem("highscore2", ",0")
+        highscore2 = localStorage.getItem("highscore2");
+      }
+      if (highscore3.split(",")[1]) {
+        highscoreArray = highscore3.split(",");
+        pThird.innerHTML = highscoreArray[0];
+        sThird.innerHTML = highscoreArray[1];
+  
+      }
+      else {
+        localStorage.setItem("highscore3", ",0")
+        highscore3 = localStorage.getItem("highscore3");
+      }
+      
+    } catch (error) {
+      
     }
-    else {
-      localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
-      highscore1 = localStorage.getItem("highscore1");
-    }
-    if (highscore2.split(",")[1]) {
-      highscoreArray = highscore2.split(",");
-      pSecond.innerHTML = highscoreArray[0];
-      sSecond.innerHTML = highscoreArray[1];
 
-    }
-    else {
-      localStorage.setItem("highscore2", ",0")
-      highscore2 = localStorage.getItem("highscore2");
-    }
-    if (highscore3.split(",")[1]) {
-      highscoreArray = highscore3.split(",");
-      pThird.innerHTML = highscoreArray[0];
-      sThird.innerHTML = highscoreArray[1];
-
-    }
-    else {
-      localStorage.setItem("highscore3", ",0")
-      highscore3 = localStorage.getItem("highscore3");
-    }
 
   }
 
