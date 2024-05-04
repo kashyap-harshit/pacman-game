@@ -228,3 +228,14 @@ button:hover {
 .menu{
   width: 400px;
 }
+
+
+@media screen and (min-width: 1920px){
+  #meta{
+    padding: 300px 0px 350px;
+    width: 50%;
+  }
+  #grid{
+    padding-bottom: 200px;
+  }
+}
