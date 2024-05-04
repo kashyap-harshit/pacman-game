@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let gameStarted = false;
   let paused = false;
   let playerName;
-  let highscore1 = localStorage.getItem("highscore1");
-  let highscore2 = localStorage.getItem("highscore2");
-  let highscore3 = localStorage.getItem("highscore3");
+  let highscore1;
+  let highscore2;
+  let highscore3;
   const grid = document.getElementById("grid");
   const scoreDisplay = document.getElementById("score");
   const resultDisplay = document.getElementById("result");
@@ -101,43 +101,41 @@ document.addEventListener('DOMContentLoaded', () => {
     highscore1 = localStorage.getItem("highscore1");
     highscore2 = localStorage.getItem("highscore2");
     highscore3 = localStorage.getItem("highscore3");
-    let highscoreArray;
     try {
-      if (highscore1.split(",")[1]) {
+
         highscoreArray = highscore1.split(",");
-        pFirst.innerHTML = highscoreArray[0];
-        sFirst.innerHTML = highscoreArray[1];
+        pFirst.innerHTML = highscore1.split(",")[0];
+        sFirst.innerHTML = highscore1.split(",")[1];
   
-  
-      }
-      else {
-        localStorage.setItem("highscore1", ".,0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
-        highscore1 = localStorage.getItem("highscore1");
-      }
-      if (highscore2.split(",")[1]) {
-        highscoreArray = highscore2.split(",");
-        pSecond.innerHTML = highscoreArray[0];
-        sSecond.innerHTML = highscoreArray[1];
-  
-      }
-      else {
-        localStorage.setItem("highscore2", ".,0")
-        highscore2 = localStorage.getItem("highscore2");
-      }
-      if (highscore3.split(",")[1]) {
-        highscoreArray = highscore3.split(",");
-        pThird.innerHTML = highscoreArray[0];
-        sThird.innerHTML = highscoreArray[1];
-  
-      }
-      else {
-        localStorage.setItem("highscore3", ".,0")
-        highscore3 = localStorage.getItem("highscore3");
-      }
-      
+
     } catch (error) {
-      
+      localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
+      highscore1 = localStorage.getItem("highscore1");
+
     }
+    try {
+        highscoreArray = highscore2.split(",");
+        pSecond.innerHTML = highscore2.split(",")[0];
+        sSecond.innerHTML = highscore2.split(",")[1];
+
+
+    } catch (error) {
+      localStorage.setItem("highscore2", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
+      highscore2 = localStorage.getItem("highscore2");
+
+
+    }
+    try {
+
+        highscoreArray = highscore3.split(",");
+        pThird.innerHTML = highscore3.split(",")[0];
+        sThird.innerHTML = highscore3.split(",")[1];
+    } catch (error) {
+      localStorage.setItem("highscore3", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
+      highscore3 = localStorage.getItem("highscore3");
+
+    }
+    
 
 
   }
@@ -464,6 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
       playerName = prompt("You have beat the highest score, enter your name : ");
       checkNullString(playerName)
       localStorage.setItem("highscore1", `${playerName},${score}`)
+      console.log(localStorage.getItem("highscore1"));
 
     } else if (score >= highscore2.split(",")[1]) {
       playerName = prompt("You have beat the second highest score, enter your name : ");
