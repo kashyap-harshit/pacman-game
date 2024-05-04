@@ -98,6 +98,22 @@ button:hover {
 .energizer {
   background-color: white;
   border-radius: 10px;
+  animation: eng-an 1s infinite;
+}
+
+@keyframes eng-an {
+  0%{
+    opacity: 0;
+  }
+  25%{
+    opacity: 1;
+  }
+  75%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
 }
 
 .wall {
@@ -119,6 +135,7 @@ button:hover {
   border: 0px;
   border-radius: 0px;
   background-repeat: no-repeat;
+  animation: none;
 }
 
 .dizzy-red {
@@ -140,6 +157,7 @@ button:hover {
   border: 0px;
   border-radius: 0px;
   background-repeat: no-repeat;
+  animation: none;
 }
 
 .orange {
@@ -149,6 +167,7 @@ button:hover {
   border: 0px;
   border-radius: 0px;
   background-repeat: no-repeat;
+  animation: none;
 }
 
 .dizzy {

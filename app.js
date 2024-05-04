@@ -27,6 +27,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 28;
   let score = 0;
   let pacmanCurrentIndex = 490;
+  let sfx = {
+    eat: new Howl({
+      src: "assets/sounds/eat.mp3"
+    }),
+    transport: new Howl({
+      src: "assets/sounds/transport.mp3",
+      volume: 0.30
+    }),
+    energy: new Howl({
+      src: "assets/sounds/energy.mp3",
+      volume: 0.25
+    }),
+    kill: new Howl({
+      src: "assets/sounds/kill.wav",
+      volume: 0.20
+    }),
+    bgm: new Howl({
+      src: "assets/sounds/bgm.mp3",
+      loop: true,
+      volume: 0.075
+    }),
+    pause: new Howl({
+      src: "assets/sounds/pause.wav",
+      volume: 0.075
+    })
+  }
 
   const layout = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -62,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3 - energizer
   // 4 - empty
 
-  //function to load the top scorers
+  //function to load the top scorers - HK
   function topScorers() {
     highscore1 = localStorage.getItem("highscore1");
     highscore2 = localStorage.getItem("highscore2");
@@ -76,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
     else {
-      highscore1 = localStorage.setItem("highscore1", ",0") //in the gameover function i am slicing it up so to make sense there this had to be saved like this HK
+      highscore1 = localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
     }
     if (highscore2) {
       highscoreArray = highscore2.split(",");
@@ -134,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //move pac-man using keyboard
 
-  document.addEventListener("keydown", allKeydown); //since i have to cancel out the keydown event listener when game over so wrote a separate function consisting all the functions HK
+  document.addEventListener("keydown", redirection); //since i have to cancel out the keydown event listener when game over so wrote a separate function consisting all the functions - HK
   function allKeydown(event) {
     redirection(event);
 
@@ -143,51 +169,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function redirection(event) {
     if (paused) {
-      if (event.keyCode === 32) { // redirecting to the game window HK
+      if (event.keyCode === 32) { // redirecting to the game window - HK
         event.preventDefault()
         grid.scrollIntoView();
+        sfx.bgm.play();
         //call moveGhost function for each ghost by sending each ghost as parameter
         ghosts.forEach((item, i) => {
           moveGhost(item);
         });
+        document.addEventListener("keydown", movePacMan);
         paused = false;
       }
-    }else if(gameStarted){
-      if(event.keyCode === 32){
+    } else if (gameStarted) {
+      if (event.keyCode === 32) {
         //chill
       }
     }
     else {
 
-      if (event.keyCode === 32) { // redirecting to the game window HK
-        event.preventDefault()
+      if (event.keyCode === 32) { // redirecting to the game window - HK
+        event.preventDefault();
+        console.log('yaha');
+        if (!sfx.bgm.playing()) {
+          sfx.bgm.play();
+        }
         grid.scrollIntoView();
         // window.location.reload();
+
         //call moveGhost function for each ghost by sending each ghost as parameter
         ghosts.forEach((item, i) => {
+          squares[item.currentIndex].classList.remove("ghost", item.color, "dizzy", `dizzy-${item.color}`);
+          //draw ghosts on the board
+          item.currentIndex = item.startIndex;
+          squares[item.currentIndex].classList.add(item.color);
+          squares[item.currentIndex].classList.add("ghost");
           moveGhost(item);
         });
+        score = 0;
+        //draw pac-man
+        squares[pacmanCurrentIndex].classList.remove("pac-man");
+        pacmanCurrentIndex = 490;
+        squares[pacmanCurrentIndex].classList.add("pac-man");
+        scoreDisplay.innerHTML = 0;
+        document.addEventListener("keydown", movePacMan);
         gameStarted = true;
       }
     }
-    if(gameStarted){
+    if (gameStarted) {
 
       if (event.keyCode === 27) {
         event.preventDefault();
+        sfx.bgm.pause();
+        sfx.pause.play();
         meta.scrollIntoView();
         ghosts.forEach((item, i) => {
           clearInterval(item.timerId);
         });
         paused = true;
+        // gameStarted= false;
         resultDisplay.innerHTML = "PAUSED";
         instruct.innerHTML = "Press Space Bar To Continue";
-  
-  
+        document.removeEventListener("keydown", movePacMan)
+
       }
     }
   }
-  function movePacMan(event) {
 
+  function movePacMan(event) {
 
     squares[pacmanCurrentIndex].classList.remove("pac-man");
     if (event.keyCode === 37) { //left
@@ -196,7 +244,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       //factor in left exit
       if (pacmanCurrentIndex - 1 === 363) {
+        if (sfx.transport.playing()) {
+          sfx.transport.stop();
+          sfx.transport.play();
+        } else {
+          sfx.transport.play();
+        }
         pacmanCurrentIndex = 391;
+
       }
     }
     else if (event.keyCode === 38) { //up
@@ -212,6 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       //factor in right exit
       if (pacmanCurrentIndex + 1 === 392) {
+        if (sfx.transport.playing()) {
+          sfx.transport.stop();
+          sfx.transport.play();
+        } else {
+          sfx.transport.play();
+        }
         pacmanCurrentIndex = 364;
       }
     }
@@ -237,11 +298,23 @@ document.addEventListener('DOMContentLoaded', () => {
       score += 10;
       scoreDisplay.innerHTML = score;
       squares[pacmanCurrentIndex].classList.remove("dot");
+      if (sfx.eat.playing()) {
+        sfx.eat.stop();
+        sfx.eat.play();
+      } else {
+        sfx.eat.play();
+      }
     }
   }
 
   function checkEnergizerEaten() {
     if (squares[pacmanCurrentIndex].classList.contains("energizer")) {
+      if (sfx.energy.playing()) {
+        sfx.energy.stop();
+        sfx.energy.play();
+      } else {
+        sfx.energy.play();
+      }
       squares[pacmanCurrentIndex].classList.remove("energizer")
       score += 20;
       scoreDisplay.innerHTML = score;
@@ -253,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ghosts.forEach((item, i) => {
           item.isDizzy = false;
         });
-      }, 2000); //changed the time period of their freezing HK
+      }, 2000); //changed the time period of their freezing - HK
     }
   }
 
@@ -270,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   //create array of Ghost objects
-  const ghosts = [ //added more ghosts HK
+  const ghosts = [ //added more ghosts - HK
     new Ghost("red", 348, 500),
     new Ghost("red", 376, 500),
     new Ghost("cyan", 351, 350),
@@ -294,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const directions = [-1, -width, 1, width];
     let randomDir = directions[Math.floor(Math.random() * directions.length)];
     ghost.timerId = setInterval(function () {
-      if (!ghost.isDizzy) { //if dizzy don't move HK
+      if (!ghost.isDizzy) { //if dizzy don't move - HK
 
 
         //first check if it is in the lair only if that is so then try to move up
@@ -328,6 +401,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       //if pac-man eats the ghost while it's dizzy
       if (ghost.isDizzy === true && squares[ghost.currentIndex].classList.contains("pac-man")) {
+        if (sfx.kill.playing()) {
+          sfx.kill.stop();
+          sfx.kill.play();
+        } else {
+          sfx.kill.play();
+        }
         squares[ghost.currentIndex].classList.remove("ghost", ghost.color, "dizzy", `dizzy-${ghost.color}`);
         ghost.currentIndex = ghost.startIndex;
         squares[ghost.currentIndex].classList.add("ghost", ghost.color);
@@ -346,13 +425,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function gameOver(mess) { //added this common gameover function for winning and losing HK
+  function gameOver(mess) { //added this common gameover function for winning and losing - HK
 
     ghosts.forEach((item, i) => {
       clearInterval(item.timerId);
     });
-    document.removeEventListener("keydown", allKeydown);
-    document.addEventListener("keydown", redirection);
+
     resultDisplay.innerHTML = mess;
 
     meta.scrollIntoView();
@@ -376,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     topScorers();
     // window.location.reload();
+    sfx.bgm.stop();
     gameStarted = false;
 
   }

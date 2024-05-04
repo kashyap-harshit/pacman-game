@@ -10,3 +10,4 @@ when pressed space user it is redirected to the game
 removed the scrolling ability since space bar is assigned for that task
 added a separate callback function for the keydown event listener since there are multiple functions apart from moving pacman exists
 added a pause menu
+added a favicon
