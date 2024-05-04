@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       }
       else {
-        localStorage.setItem("highscore1", ",0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
+        localStorage.setItem("highscore1", ".,0") //in the gameover function I am slicing it up so to make sense there this had to be saved like this - HK
         highscore1 = localStorage.getItem("highscore1");
       }
       if (highscore2.split(",")[1]) {
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       }
       else {
-        localStorage.setItem("highscore2", ",0")
+        localStorage.setItem("highscore2", ".,0")
         highscore2 = localStorage.getItem("highscore2");
       }
       if (highscore3.split(",")[1]) {
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       }
       else {
-        localStorage.setItem("highscore3", ",0")
+        localStorage.setItem("highscore3", ".,0")
         highscore3 = localStorage.getItem("highscore3");
       }
       
