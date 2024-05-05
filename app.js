@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  const layout = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  let layout = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
     1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1,
     1, 3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 3, 1,
@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2 - ghost-lair
   // 3 - energizer
   // 4 - empty
+  const layoutBackup = layout.slice(); //creating a copy of the og layout
 
   //function to load the top scorers - HK
   function topScorers() {
@@ -137,9 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //draw board and fill it with squares according to layout array
   function createBoard() {
+    layout = layoutBackup;
+    console.log("l", layout);
     for (let i = 0; i < layout.length; i++) {
       const square = document.createElement("div");
-
       grid.appendChild(square);
       squares.push(square);
 
@@ -188,7 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       else {//this condition will take place when the game will start for the first time. Redirecting to the game window -HK
         event.preventDefault();
-
+        createBoard();
+        //draw pac-man
+        squares[pacmanCurrentIndex].classList.add("pac-man");
+        //draw ghosts on the board
+        ghosts.forEach((item, i) => {
+          squares[item.currentIndex].classList.add(item.color);
+          squares[item.currentIndex].classList.add("ghost");
+        });
         if (!sfx.bgm.playing()) {
           sfx.bgm.play();
         }
@@ -218,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    else if (event.keyCode === 27) {
+    else if (event.keyCode === 27) { //esc button
       if (gameStarted) {
 
         event.preventDefault();
@@ -292,8 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     else if (event.keyCode === 38) { //up
-      event.preventDefault()
-
+      event.preventDefault();
       if (pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex - width].classList.contains("wall") && !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair")) {
         pacmanCurrentIndex -= width;
       }
@@ -448,11 +456,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  createBoard();
-  topScorers();
 
-  //draw pac-man
-  squares[pacmanCurrentIndex].classList.add("pac-man");
+  topScorers();
 
   //move pac-man using keyboard
   document.addEventListener("keydown", redirection);
@@ -481,11 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
 
-  //draw ghosts on the board
-  ghosts.forEach((item, i) => {
-    squares[item.currentIndex].classList.add(item.color);
-    squares[item.currentIndex].classList.add("ghost");
-  });
+
 
 
 
