@@ -48,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
       volume: 0.5
     }),
     gameover: new Howl({
-      src: "assets/sounds/gameover.wav",
+      src: "assets/sounds/gameover.mp3",
       volume: 0.35
     }),
     win: new Howl({
-      src: "assets/sounds/win.wav",
+      src: "assets/sounds/win.mp3",
       volume: 0.35
     })
   }
@@ -484,10 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new Ghost("orange", 378, 250),
     new Ghost("orange", 377, 250),
   ];
-
-
-
-
 
 
 });
